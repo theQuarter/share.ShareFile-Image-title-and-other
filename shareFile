@@ -1,0 +1,18 @@
+ //  path_provider: ^2.0.9
+ //  share_plus: ^4.0.4
+ // http ^1.0.0
+ 
+ 
+ final url = Uri.parse(
+                                              "${AppConstants.baseUrl}${booksController.singleBook?.image}");
+                                          final responce = await http.get(url);
+                                          final bytes = responce.bodyBytes;
+                                          final temp =
+                                              await getTemporaryDirectory();
+                                          final path = "${temp.path}/image.jpg";
+                                          File(path).writeAsBytesSync(bytes);
+
+                                          await Share.shareFiles([path],
+                                              text:
+                                                  "${booksController.singleBook?.title}\n ${booksController.singleBook?.description}\n \n ${booksController.singleBook?.price} Yct books app share demo url with description");
+                                       
